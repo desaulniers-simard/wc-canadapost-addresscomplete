@@ -12,11 +12,13 @@ Address validation for WooCommerce provided by Canada Post's AddressComplete ser
 ## Description ##
 
 Provides seamless integration between WooCommerce and [Canada Post's AddressComplete](https://www.canadapost.ca/pca/) address validation service. During checkout, billing and shipping address form fields will behave in the following way:
+
 1. The first line and the postal/zip code fields now act as an autompleting search field for valid postal addresses.
 1. On selection of a search result, the remaining fields will be populated with the data from the valid address.
 1. WooCommerce's built-in country selector acts as a filter for search results. Only addresses from the selected country will be displayed.
 
 As [AddressComplete's site](https://www.canadapost.ca/pca/) will tell you this should help:
+
 1. Increase data accuracy
 1. Reduce cart abandonment
 1. Avoid the cost of missed deliveries
