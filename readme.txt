@@ -1,4 +1,4 @@
-# Canada Post AddressComplete for WooCommerce #
+=== Canada Post AddressComplete for WooCommerce ===
 Contributors: brocheafoin
 Tags: woocommerce, shipping, address validation, canada post
 Requires at least: 4.4
@@ -9,7 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Address validation for WooCommerce provided by Canada Post's AddressComplete service
 
-## Description ##
+== Description ==
 
 Provides seamless integration between WooCommerce and [Canada Post's AddressComplete](https://www.canadapost.ca/pca/) address validation service. During checkout, billing and shipping address form fields will behave in the following way:
 1. The first line and the postal/zip code fields now act as an autompleting search field for valid postal addresses.
@@ -24,27 +24,27 @@ As [AddressComplete's site](https://www.canadapost.ca/pca/) will tell you this s
 
 **Important note:** this plugin does not help on its own. You will also need to register for *AddressComplete* and set things up over there. Please read the installation instructions carefully.
 
-## Installation ##
+== Installation ==
 
-### Set up AddressComplete ###
+= Set up AddressComplete =
 1. [Register](https://www.canadapost.ca/pca/register/) or [sign in](https://www.canadapost.ca/pca/login/) at AddressComplete
 1. Go to your [dashboard](https://www.canadapost.ca/pca/Account/)
 1. Click *Create New Installation*
 1. On the following page, instead of entering your URL, click the *Create an API Key* in the *Custom Installation* sidebar
 1. Follow the steps to create and configure your API key
 
-### Install the plugin ###
+= Install the plugin =
 1. Upload the plugin files to the `/wp-content/plugins/plugin-name` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
 
-### Configure the plugin ###
+= Configure the plugin =
 1. Go to your site's Dashboard, then head over to WooCommerce' Settings page
 1. Click on the *Shipping* tab
 1. At the bottom of the page, you will see a section titled *Address Validation*
 1. Enter the API key you created at *AddressComplete* and save the settings
 1. You're done!
 
-## Changelog ##
+== Changelog ==
 
-### 1.0 ###
+= 1.0 =
 * Initial release

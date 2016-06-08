@@ -3,7 +3,7 @@
 Plugin Name: Canada Post AddressComplete for WooCommerce
 Plugin URI: https://github.com/desaulniers-simard/wc-canadapost-addresscomplete
 Description: Address validation for WooCommerce provided by <a href="https://www.canadapost.ca/pca/">Canada Post's AddressComplete</a> service
-Version: 0.1.0
+Version: 1.0.0
 Author: Desaulniers Simard
 Author URI: https://desaulniers-simard.com/
 License: GPL2
@@ -17,7 +17,7 @@ namespace DesaulniersSimard\WooCommerce\AddressComplete;
 /**
  * Canada Post API JS URI. No way to get current version programmatically right now, apparently.
  */
-const CP_JS_URI  = '//ws1.postescanada-canadapost.ca/js/addresscomplete-2.30.js';
+const CP_JS_URI  = '//ws1.postescanada-canadapost.ca/js/addresscomplete-2.30.min.js';
 
 /**
  * Canada Post API CSS URI. Makes things look consistent.
@@ -48,6 +48,9 @@ add_filter( 'woocommerce_shipping_settings', 'DesaulniersSimard\WooCommerce\Addr
  * @return array Augmented shipping settings, with our field added
  */
 function settings( $shipping_settings ) {
+	if ( !current_user_can( 'manage_woocommerce' ) ) {
+		return $shipping_settings;
+	}
 	$additional_settings = array(
 		array(
 			'id' => 'address_validation',
@@ -70,10 +73,16 @@ function settings( $shipping_settings ) {
 	return array_merge( $shipping_settings, $additional_settings );
 }
 
+add_filter( 'woocommerce_admin_settings_sanitize_option_wc_cp_addresscomplete_api_key', 'DesaulniersSimard\WooCommerce\AddressComplete\sanitize_key', 10, 1 );
+
+function sanitize_key( $value ) {
+	return sanitize_title( $value, '', 'save' );
+}
+
 add_action( 'plugins_loaded', 'DesaulniersSimard\WooCommerce\AddressComplete\languages' );
 
 function languages() {
-	load_plugin_textdomain( 'wc-canadapost-addresscomplete' );
+	load_plugin_textdomain( 'wc-canadapost-addresscomplete', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 /**
@@ -91,5 +100,5 @@ function get_api_options() {
  * @return mixed|void
  */
 function get_cp_api_key() {
-	return get_option( 'wc_cp_addresscomplete_api_key');
+	return wp_kses( get_option( 'wc_cp_addresscomplete_api_key'), array() );
 }

@@ -1,28 +1,30 @@
-jQuery( document ).ready( function( $ ) {
-    var billing_fields = [
-        { element: "billing_address_1", field: "Line1" },
-        { element: "billing_address_2", field: "Line2", mode: pca.fieldMode.POPULATE },
-        { element: "billing_city", field: "City", mode: pca.fieldMode.POPULATE },
-        { element: "billing_state", field: "ProvinceName", mode: pca.fieldMode.POPULATE },
-        { element: "billing_postcode", field: "PostalCode" },
-        { element: "billing_country", field: "CountryName", mode: pca.fieldMode.COUNTRY }
-    ];
-    new pca.Address( billing_fields, wcCanadaPostOptions);
-
-    $( '#ship-to-different-address-checkbox' ).change( function() {
-        var $shipping_cb = $( this );
-        if ( $shipping_cb.prop( 'checked') && !$shipping_cb.data( 'instantiated' ) ) {
-            var shipping_fields = [
-                { element: "shipping_address_1", field: "Line1" },
-                { element: "shipping_address_2", field: "Line2", mode: pca.fieldMode.POPULATE },
-                { element: "shipping_city", field: "City", mode: pca.fieldMode.POPULATE },
-                { element: "shipping_state", field: "ProvinceName", mode: pca.fieldMode.POPULATE },
-                { element: "shipping_postcode", field: "PostalCode" },
-                { element: "shipping_country", field: "CountryName", mode: pca.fieldMode.COUNTRY }
+( function( $ ) {
+    addressComplete.listen( 'ready', function() {
+        wcCanadaPostOptions.bar = wcCanadaPostOptions.bar || {};
+        wcCanadaPostOptions.bar.showCountry = false;
+        billing_control = bindPcaControl( 'billing' );
+        $( '#ship-to-different-address-checkbox' ).change( function() {
+            var $shipping_cb = $( this );
+            if ( $shipping_cb.prop( 'checked') && typeof( shipping_control) == 'undefined' ) {
+                shipping_control = bindPcaControl( 'shipping' );
+            }
+        });
+        function bindPcaControl( prefix ) {
+            var fields = [
+                { element: prefix + "_address_1", field: "Line1" },
+                { element: prefix + "_address_2", field: "Line2", mode: pca.fieldMode.POPULATE },
+                { element: prefix + "_city", field: "City", mode: pca.fieldMode.POPULATE },
+                { element: prefix + "_postcode", field: "PostalCode" }
             ];
-            new pca.Address( shipping_fields, wcCanadaPostOptions);
-            $shipping_cb.data( 'instantiated', true );
+            var control = new pca.Address( fields, wcCanadaPostOptions);
+            control.setCountry( $( '#' + prefix + '_country' ).val() );
+            control.listen( 'populate', function( address ) {
+                $( '#' + prefix + '_state').val( address.ProvinceCode).trigger( 'change' );
+            });
+            $( document.body ).on( 'change', '#' + prefix + '_country', function() {
+                control.setCountry( $( '#' + prefix + '_country' ).val() );
+            });
+            return control;
         }
     })
-
-});
+})( jQuery );
