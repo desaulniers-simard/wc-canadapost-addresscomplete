@@ -1,11 +1,11 @@
 # Canada Post AddressComplete for WooCommerce #
-Contributors: brocheafoin
-Tags: woocommerce, shipping, address validation, canada post
-Requires at least: 4.4
-Tested up to: 4.5.2
-Stable tag: releases
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Contributors: brocheafoin  
+Tags: woocommerce, shipping, address validation, canada post  
+Requires at least: 4.4  
+Tested up to: 4.5.2  
+Stable tag: releases  
+License: GPLv2 or later  
+License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
 Address validation for WooCommerce provided by Canada Post's AddressComplete service
 
